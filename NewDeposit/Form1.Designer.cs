@@ -45,9 +45,12 @@
             this.FinalInvestment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnShowCurrentInvestment = new System.Windows.Forms.Button();
             this.dgvCurrentSecurities = new System.Windows.Forms.DataGridView();
+            this.grpMaxContribution = new System.Windows.Forms.GroupBox();
+            this.txtMaxInvestment = new System.Windows.Forms.TextBox();
             this.boxStrategy.SuspendLayout();
             this.grpContribution.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentSecurities)).BeginInit();
+            this.grpMaxContribution.SuspendLayout();
             this.SuspendLayout();
             // 
             // boxStrategy
@@ -189,12 +192,6 @@
             this.btnShowCurrentInvestment.UseVisualStyleBackColor = true;
             this.btnShowCurrentInvestment.Click += new System.EventHandler(this.btnShowCurrentInvestment_Click);
             // 
-            // Form1
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(820, 668);
-            // 
             // dgvCurrentSecurities
             // 
             this.dgvCurrentSecurities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -213,6 +210,30 @@
             this.dgvCurrentSecurities.Text = "dataGridView1";
             this.dgvCurrentSecurities.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvCurrentSecurities_CellValidating);
             this.dgvCurrentSecurities.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCurrentSecurities_DefaultValuesNeeded);
+            // 
+            // grpMaxContribution
+            // 
+            this.grpMaxContribution.Controls.Add(this.txtMaxInvestment);
+            this.grpMaxContribution.Location = new System.Drawing.Point(472, 376);
+            this.grpMaxContribution.Name = "grpMaxContribution";
+            this.grpMaxContribution.Size = new System.Drawing.Size(249, 66);
+            this.grpMaxContribution.TabIndex = 7;
+            this.grpMaxContribution.TabStop = false;
+            this.grpMaxContribution.Text = "Maximum Amount per Final Investment";
+            // 
+            // txtMaxInvestment
+            // 
+            this.txtMaxInvestment.Location = new System.Drawing.Point(13, 22);
+            this.txtMaxInvestment.Name = "txtMaxInvestment";
+            this.txtMaxInvestment.Size = new System.Drawing.Size(188, 23);
+            this.txtMaxInvestment.TabIndex = 0;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(820, 668);
+            this.Controls.Add(this.grpMaxContribution);
             this.Controls.Add(this.btnShowCurrentInvestment);
             this.Controls.Add(this.txtResult);
             this.Controls.Add(this.grpContribution);
@@ -227,6 +248,8 @@
             this.grpContribution.ResumeLayout(false);
             this.grpContribution.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentSecurities)).EndInit();
+            this.grpMaxContribution.ResumeLayout(false);
+            this.grpMaxContribution.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,6 +273,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Expense;
         private System.Windows.Forms.DataGridViewTextBoxColumn FinalInvestment;
         private System.Windows.Forms.Button btnShowCurrentInvestment;
+        private System.Windows.Forms.GroupBox grpMaxContribution;
+        private System.Windows.Forms.TextBox txtMaxInvestment;
     }
 }
 

@@ -20,7 +20,7 @@ namespace ContributionCalculators.NUnit
             var contribution = new Contribution(32);
 
             var calculator = new EvenDistributionCalculator();
-            var result = await calculator.Rebalance(portfolio, false, contribution);
+            var result = await calculator.Rebalance(portfolio, false, 0, contribution);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Positions, Is.Not.Null);
@@ -28,6 +28,26 @@ namespace ContributionCalculators.NUnit
             Assert.That(result.LeftOverAmount, Is.EqualTo(2));
             Assert.That(result.Positions[0].Price, Is.EqualTo(3));
             Assert.That(result.Positions[0].Quantity, Is.EqualTo(10));
+        }
+
+        [Test]
+        public async Task Can_Run_With_Maximum_Investment_Amount_Portfolio()
+        {
+            var portfolio = new Portfolio(new List<IPosition>
+            {
+                new Position("position1", quantity: 1, price: 3)
+            });
+            var contribution = new Contribution(32);
+
+            var calculator = new EvenDistributionCalculator();
+            var result = await calculator.Rebalance(portfolio, false, 9, contribution);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Positions, Is.Not.Null);
+            Assert.That(result.Positions.Count, Is.EqualTo(1));
+            Assert.That(result.LeftOverAmount, Is.EqualTo(26));
+            Assert.That(result.Positions[0].Price, Is.EqualTo(3));
+            Assert.That(result.Positions[0].Quantity, Is.EqualTo(2));
         }
 
         [TestFixture]
@@ -47,7 +67,7 @@ namespace ContributionCalculators.NUnit
                 var contribution = new Contribution(13);
 
                 var calculator = new EvenDistributionCalculator();
-                var result = await calculator.Rebalance(portfolio, false, contribution);
+                var result = await calculator.Rebalance(portfolio, false, 0, contribution);
 
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result.Positions, Is.Not.Null);
@@ -98,7 +118,7 @@ namespace ContributionCalculators.NUnit
                 var contribution = new Contribution(6200);
 
                 var calculator = new EvenDistributionCalculator();
-                var result = await calculator.Rebalance(portfolio, false, contribution);
+                var result = await calculator.Rebalance(portfolio, false, 0, contribution);
 
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result.Positions, Is.Not.Null);

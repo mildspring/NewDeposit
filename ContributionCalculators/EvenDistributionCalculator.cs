@@ -15,6 +15,7 @@ namespace ContributionCalculators
         public async Task<Order> Rebalance(
             Portfolio portfolio,
             bool sellingAllowed,
+            double keepInvestmentsAtOrBelow,
             Contribution amount)
         {
             if (sellingAllowed)
@@ -22,13 +23,14 @@ namespace ContributionCalculators
                 throw new NotImplementedException($"Parameter {sellingAllowed} has to be false.");
             }
 
-            var t = Task.Run(() => Perform(portfolio, amount));
+            var t = Task.Run(() => Perform(portfolio, amount, keepInvestmentsAtOrBelow));
             return await t;
         }
 
         private Order Perform(
             Portfolio portfolio,
-            Contribution amount)
+            Contribution amount,
+            double keepInvestmentsAtOrBelow)
         {
             var workPositions = portfolio.Positions
                 .Select(p => new PositionInProgress(p))
@@ -44,7 +46,8 @@ namespace ContributionCalculators
                 var updatedOne = false;
                 for (int i = 0; !updatedOne && i < positionsSortedByInvestment.Count; i++)
                 {
-                    if (positionsSortedByInvestment[i].Price <= workAmount)
+                    if (positionsSortedByInvestment[i].Price <= workAmount
+                        && (keepInvestmentsAtOrBelow == 0 ? double.MaxValue : keepInvestmentsAtOrBelow) >= (positionsSortedByInvestment[i].CalculatedInvestment() + positionsSortedByInvestment[i].Price))
                     {
                         // found an item to update
                         positionsSortedByInvestment[i].AddOne();
@@ -111,7 +114,7 @@ namespace ContributionCalculators
                     price: Price);
             }
 
-            internal object CalculatedInvestment()
+            internal double CalculatedInvestment()
             {
                 return Price * (Quantity + _additionalQuantity);
             }

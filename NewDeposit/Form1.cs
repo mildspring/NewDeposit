@@ -74,9 +74,12 @@ namespace NewDeposit
                         price: double.Parse(row.Cells[2].Value.ToString())));
                 }
                 var portfolio = new Portfolio(positions.ToList());
+                double maxInvestment;
+                double.TryParse(txtMaxInvestment.Text, out maxInvestment);
                 var result = await depositCalculator.Rebalance(
                     portfolio,
                     chkSellingAllowed.Checked,
+                    maxInvestment == 0 ? double.MaxValue : maxInvestment,
                     new Contribution(double.Parse(txtContributionAmount.Text)));
 
                 var resultString = new StringBuilder();
