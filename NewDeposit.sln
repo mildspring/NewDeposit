@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContributionCalculators", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContributionCalculators.NUnit", "ContributionCalculators.NUnit\ContributionCalculators.NUnit.csproj", "{FAC2A4DD-B52B-4461-8372-43713F390B6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{A8FB65B7-61A7-4737-8C5D-C8C2291153BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities", "Utilities\Utilities.csproj", "{A8FB65B7-61A7-4737-8C5D-C8C2291153BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities.NUnit", "Utilities.NUnit\Utilities.NUnit.csproj", "{63F99B4B-F738-4D5C-AA9F-F5B3CCEE7571}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities.NUnit", "Utilities.NUnit\Utilities.NUnit.csproj", "{63F99B4B-F738-4D5C-AA9F-F5B3CCEE7571}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialDataRetriever", "FinancialDataRetriever\FinancialDataRetriever.csproj", "{CB4F3DA9-E80D-4A8F-8C74-E5001C664B22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{63F99B4B-F738-4D5C-AA9F-F5B3CCEE7571}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63F99B4B-F738-4D5C-AA9F-F5B3CCEE7571}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63F99B4B-F738-4D5C-AA9F-F5B3CCEE7571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB4F3DA9-E80D-4A8F-8C74-E5001C664B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB4F3DA9-E80D-4A8F-8C74-E5001C664B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB4F3DA9-E80D-4A8F-8C74-E5001C664B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB4F3DA9-E80D-4A8F-8C74-E5001C664B22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

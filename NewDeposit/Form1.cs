@@ -1,4 +1,5 @@
 ﻿using ContributionCalculators;
+using FinancialDataRetriever;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FinancialDataRetriever;
 
 namespace NewDeposit
 {
@@ -146,8 +148,10 @@ namespace NewDeposit
             }
         }
 
-        private void btnShowCurrentInvestment_Click(object sender, EventArgs e)
+        private async void btnShowCurrentInvestment_Click(object sender, EventArgs e)
         {
+            var symbols = new List<string>();
+
             foreach (DataGridViewRow row in dgvCurrentSecurities
                     .Rows)
             {
@@ -159,7 +163,22 @@ namespace NewDeposit
                 var currentShares = double.Parse(row.Cells["CurrentShares"].Value.ToString());
                 var buyPrice = double.Parse(row.Cells["BuyPrice"].Value.ToString());
                 row.Cells["CurrentInvestment"].Value = currentShares * buyPrice;
+
+                symbols.Add(row.Cells[0].Value.ToString());
             }
+
+            var financialDataRetriever = new FinancialDataRetriever.FinancialDataRetriever();
+            var data = await financialDataRetriever.GetData(symbols);
+
+            var symbolData = new StringBuilder();
+            symbolData.Append(Environment.NewLine);
+            foreach (var onePiece in data)
+            {
+                symbolData.Append(Environment.NewLine);
+                symbolData.Append($"{onePiece.Key}: {onePiece.Value.Fields.GetValueOrDefault("RegularMarketPrice")}");
+            }
+
+            txtResult.Text += symbolData.ToString();
         }
     }
 }
