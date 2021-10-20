@@ -80,5 +80,25 @@ namespace FinancialDataRetriever
 
             return data;
         }
+
+        public async Task<Dictionary<string, Candle>> GetHistoricalPrice(
+            DateTime date,
+            HashSet<string> tickers)
+        {
+            var dateToCandleMap = new Dictionary<string, Candle>();
+
+            foreach (var ticker in tickers)
+            {
+                var startTime = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
+                var endTime = new DateTime(date.Year, date.Month, date.Day, 23, 59, 59);
+                var result = await Yahoo.GetHistoricalAsync(ticker, startTime, endTime, Period.Daily);
+                if (result.Count != 1)
+                {
+                    //throw new Exception($"Unexpected number of results {result.Count}, expected one.");
+                }
+                dateToCandleMap.Add(ticker, result.First());
+            }
+            return dateToCandleMap;
+        }
     }
 }
