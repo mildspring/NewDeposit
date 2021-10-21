@@ -1,23 +1,23 @@
 ﻿using ContributionCalculators;
-using FinancialDataRetriever;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using FinancialDataRetriever;
+using FinancialDataRetriever.Repositories.Interfaces;
+using FinancialDataRetriever.Repositories;
 
 namespace NewDeposit
 {
     public partial class Form1 : Form
     {
+        private IPricesRepositoryCandles _candleRepository;
+
         public Form1()
         {
             InitializeComponent();
+            _candleRepository = new PricesRepositoryCandles();
         }
 
         private void dgvCurrentSecurities_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -167,7 +167,7 @@ namespace NewDeposit
                 symbols.Add(row.Cells[0].Value.ToString());
             }
 
-            var financialDataRetriever = new FinancialDataRetriever.FinancialDataRetriever();
+            var financialDataRetriever = new FinancialDataRetriever.FinancialDataRetriever(_candleRepository);
             var data = await financialDataRetriever.GetData(symbols);
 
             var symbolData = new StringBuilder();

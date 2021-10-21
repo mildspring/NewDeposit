@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using YahooFinanceApi;
 using System.Linq;
 using System.Threading.Tasks;
+using FinancialDataRetriever.Repositories.Interfaces;
 
 namespace FinancialDataRetriever
 {
     public class FinancialDataRetriever
     {
+        private readonly IPricesRepositoryCandles _candleRepository;
+
+        public FinancialDataRetriever(
+            IPricesRepositoryCandles candleRepository)
+        {
+            _candleRepository = candleRepository;
+        }
+
         public async Task<IReadOnlyDictionary<string, Security>> GetData(IList<string> symbols)
         {
             var data = await Yahoo.Symbols(symbols.ToArray()).Fields(
@@ -90,13 +99,21 @@ namespace FinancialDataRetriever
             foreach (var ticker in tickers)
             {
                 var startTime = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
-                var endTime = new DateTime(date.Year, date.Month, date.Day, 23, 59, 59);
-                var result = await Yahoo.GetHistoricalAsync(ticker, startTime, endTime, Period.Daily);
-                if (result.Count != 1)
+
+                var data = await _candleRepository.Get(ticker, startTime);
+                if (data == null)
                 {
-                    //throw new Exception($"Unexpected number of results {result.Count}, expected one.");
+                    var endTime = new DateTime(date.Year, date.Month, date.Day, 23, 59, 59);
+                    var result = await Yahoo.GetHistoricalAsync(ticker, startTime, endTime, Period.Daily);
+                    if (result.Count != 1)
+                    {
+                        //throw new Exception($"Unexpected number of results {result.Count}, expected one.");
+                    }
+                    data = result.First();
+                    await _candleRepository.Save(ticker, startTime, data);
                 }
-                dateToCandleMap.Add(ticker, result.First());
+                
+                dateToCandleMap.Add(ticker, data);
             }
             return dateToCandleMap;
         }
