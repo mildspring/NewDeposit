@@ -38,22 +38,25 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtOriginalTotal = new System.Windows.Forms.TextBox();
-            this.LotDifference = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Difference = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FinalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OriginalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LotSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ticker = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCurrentSecurities = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
             this.txtFinalTotal = new System.Windows.Forms.TextBox();
+            this.Ticker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LotSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OriginalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FinalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Difference = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LotDifference = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Percent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtPercent = new System.Windows.Forms.TextBox();
+            this.dgvCurrentSecurities = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentSecurities)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(746, 18);
+            this.label1.Location = new System.Drawing.Point(783, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 15);
             this.label1.TabIndex = 1;
@@ -62,7 +65,7 @@
             // 
             // txtFromDate
             // 
-            this.txtFromDate.Location = new System.Drawing.Point(746, 36);
+            this.txtFromDate.Location = new System.Drawing.Point(783, 37);
             this.txtFromDate.Name = "txtFromDate";
             this.txtFromDate.Size = new System.Drawing.Size(100, 23);
             this.txtFromDate.TabIndex = 2;
@@ -71,7 +74,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(746, 76);
+            this.label2.Location = new System.Drawing.Point(783, 77);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 15);
             this.label2.TabIndex = 1;
@@ -80,7 +83,7 @@
             // 
             // txtToDate
             // 
-            this.txtToDate.Location = new System.Drawing.Point(746, 94);
+            this.txtToDate.Location = new System.Drawing.Point(783, 95);
             this.txtToDate.Name = "txtToDate";
             this.txtToDate.Size = new System.Drawing.Size(100, 23);
             this.txtToDate.TabIndex = 2;
@@ -88,7 +91,7 @@
             // 
             // Run
             // 
-            this.Run.Location = new System.Drawing.Point(746, 149);
+            this.Run.Location = new System.Drawing.Point(783, 150);
             this.Run.Name = "Run";
             this.Run.Size = new System.Drawing.Size(84, 66);
             this.Run.TabIndex = 3;
@@ -98,7 +101,7 @@
             // 
             // txtResult
             // 
-            this.txtResult.Location = new System.Drawing.Point(13, 368);
+            this.txtResult.Location = new System.Drawing.Point(3, 449);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
             this.txtResult.Size = new System.Drawing.Size(647, 147);
@@ -106,7 +109,7 @@
             // 
             // txtTotalDifference
             // 
-            this.txtTotalDifference.Location = new System.Drawing.Point(746, 270);
+            this.txtTotalDifference.Location = new System.Drawing.Point(783, 271);
             this.txtTotalDifference.Name = "txtTotalDifference";
             this.txtTotalDifference.Size = new System.Drawing.Size(100, 23);
             this.txtTotalDifference.TabIndex = 6;
@@ -114,7 +117,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(746, 241);
+            this.label3.Location = new System.Drawing.Point(783, 242);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 15);
             this.label3.TabIndex = 7;
@@ -123,7 +126,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(746, 311);
+            this.label4.Location = new System.Drawing.Point(783, 312);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 15);
             this.label4.TabIndex = 8;
@@ -131,44 +134,93 @@
             // 
             // txtOriginalTotal
             // 
-            this.txtOriginalTotal.Location = new System.Drawing.Point(746, 338);
+            this.txtOriginalTotal.Location = new System.Drawing.Point(783, 339);
             this.txtOriginalTotal.Name = "txtOriginalTotal";
             this.txtOriginalTotal.Size = new System.Drawing.Size(100, 23);
             this.txtOriginalTotal.TabIndex = 9;
             // 
-            // LotDifference
+            // label5
             // 
-            this.LotDifference.HeaderText = "Lot Difference";
-            this.LotDifference.Name = "LotDifference";
-            this.LotDifference.ReadOnly = true;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(783, 390);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 15);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Final Total";
             // 
-            // Difference
+            // txtFinalTotal
             // 
-            this.Difference.HeaderText = "Difference";
-            this.Difference.Name = "Difference";
-            this.Difference.ReadOnly = true;
+            this.txtFinalTotal.Location = new System.Drawing.Point(783, 423);
+            this.txtFinalTotal.Name = "txtFinalTotal";
+            this.txtFinalTotal.Size = new System.Drawing.Size(100, 23);
+            this.txtFinalTotal.TabIndex = 11;
             // 
-            // FinalPrice
+            // Ticker
             // 
-            this.FinalPrice.HeaderText = "Final Price";
-            this.FinalPrice.Name = "FinalPrice";
-            this.FinalPrice.ReadOnly = true;
+            this.Ticker.HeaderText = "Ticker";
+            this.Ticker.Name = "Ticker";
+            this.Ticker.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // LotSize
+            // 
+            this.LotSize.HeaderText = "Lot Size";
+            this.LotSize.Name = "LotSize";
+            this.LotSize.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // OriginalPrice
             // 
             this.OriginalPrice.HeaderText = "Original Price";
             this.OriginalPrice.Name = "OriginalPrice";
             this.OriginalPrice.ReadOnly = true;
+            this.OriginalPrice.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // LotSize
+            // FinalPrice
             // 
-            this.LotSize.HeaderText = "Lot Size";
-            this.LotSize.Name = "LotSize";
+            this.FinalPrice.HeaderText = "Final Price";
+            this.FinalPrice.Name = "FinalPrice";
+            this.FinalPrice.ReadOnly = true;
+            this.FinalPrice.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // Ticker
+            // Difference
             // 
-            this.Ticker.HeaderText = "Ticker";
-            this.Ticker.Name = "Ticker";
+            this.Difference.HeaderText = "Difference";
+            this.Difference.Name = "Difference";
+            this.Difference.ReadOnly = true;
+            this.Difference.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // LotDifference
+            // 
+            this.LotDifference.HeaderText = "Lot Difference";
+            this.LotDifference.Name = "LotDifference";
+            this.LotDifference.ReadOnly = true;
+            this.LotDifference.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Percent
+            // 
+            this.Percent.HeaderText = "Percent";
+            this.Percent.Name = "Percent";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(782, 468);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 15);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Percent";
+            // 
+            // txtPercent
+            // 
+            this.txtPercent.Location = new System.Drawing.Point(780, 512);
+            this.txtPercent.Name = "txtPercent";
+            this.txtPercent.Size = new System.Drawing.Size(100, 23);
+            this.txtPercent.TabIndex = 13;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(891, 608);
             // 
             // dgvCurrentSecurities
             // 
@@ -179,34 +231,15 @@
             this.OriginalPrice,
             this.FinalPrice,
             this.Difference,
-            this.LotDifference});
-            this.dgvCurrentSecurities.Location = new System.Drawing.Point(13, 56);
+            this.LotDifference,
+            this.Percent});
+            this.dgvCurrentSecurities.Location = new System.Drawing.Point(3, 56);
             this.dgvCurrentSecurities.Name = "dgvCurrentSecurities";
-            this.dgvCurrentSecurities.Size = new System.Drawing.Size(647, 348);
+            this.dgvCurrentSecurities.Size = new System.Drawing.Size(762, 387);
             this.dgvCurrentSecurities.TabIndex = 4;
             this.dgvCurrentSecurities.Text = "dataGridView2";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(746, 389);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 15);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Final Total";
-            // 
-            // txtFinalTotal
-            // 
-            this.txtFinalTotal.Location = new System.Drawing.Point(746, 422);
-            this.txtFinalTotal.Name = "txtFinalTotal";
-            this.txtFinalTotal.Size = new System.Drawing.Size(100, 23);
-            this.txtFinalTotal.TabIndex = 11;
-            // 
-            // Form1
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(855, 520);
+            this.Controls.Add(this.txtPercent);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.txtFinalTotal);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtOriginalTotal);
@@ -239,15 +272,18 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtOriginalTotal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LotDifference;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Difference;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FinalPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OriginalPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LotSize;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Ticker;
         private System.Windows.Forms.DataGridView dgvCurrentSecurities;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtFinalTotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Ticker;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LotSize;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OriginalPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FinalPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Difference;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LotDifference;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Percent;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtPercent;
     }
 }
 

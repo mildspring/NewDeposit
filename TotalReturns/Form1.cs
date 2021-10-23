@@ -69,6 +69,7 @@ namespace TotalReturns
                     row.Cells[4].Value = singleInstrumentDifference;
                     var lotDifference = lotSize * singleInstrumentDifference;
                     row.Cells[5].Value = lotDifference;
+                    row.Cells[6].Value = (finalCandle.Close - originalCandle.Close) / originalCandle.Close * 100;
                     totalDifference += lotDifference;
                     originalTotal += originalCandle.Close * lotSize;
                     finalTotal += finalCandle.Close * lotSize;
@@ -77,6 +78,7 @@ namespace TotalReturns
                 txtTotalDifference.Text = totalDifference.ToString();
                 txtOriginalTotal.Text = originalTotal.ToString();
                 txtFinalTotal.Text = finalTotal.ToString();
+                txtPercent.Text = ((finalTotal - originalTotal) / originalTotal * 100).ToString();
             }
             catch (Exception ex)
             {
