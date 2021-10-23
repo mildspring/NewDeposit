@@ -1,7 +1,9 @@
 ﻿using FinancialDataRetriever.Repositories;
 using FinancialDataRetriever.Repositories.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace TotalReturns
@@ -42,7 +44,7 @@ namespace TotalReturns
                 decimal totalDifference = 0;
                 decimal originalTotal = 0;
                 decimal finalTotal = 0;
-                foreach(DataGridViewRow row in dgvCurrentSecurities
+                foreach (DataGridViewRow row in dgvCurrentSecurities
                     .Rows)
                 {
                     if (row.Cells[0].Value == null)
@@ -113,6 +115,113 @@ namespace TotalReturns
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnSerialize_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Displays a SaveFileDialog so the user can save the Image
+                // assigned to Button2.
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "Json File|*.json";
+                saveFileDialog1.Title = "Save a Json File";
+                saveFileDialog1.ShowDialog();
+                saveFileDialog1.RestoreDirectory = true;
+
+                var lots = new List<SerializedData.Lot>();
+                foreach (DataGridViewRow row in dgvCurrentSecurities
+                        .Rows)
+                {
+                    if (row.Cells[0].Value == null)
+                    {
+                        txtResult.Text += $"Skipping lines with null values{Environment.NewLine}";
+                        continue;
+                    }
+                    lots.Add(new SerializedData.Lot()
+                    {
+                        Quantity = decimal.Parse(row.Cells[1].Value.ToString()),
+                        Ticker = row.Cells[0].Value.ToString()
+                    });
+                }
+                var saveData = new SerializedData()
+                {
+                    FromDate = txtFromDate.Text,
+                    ToDate = txtToDate.Text,
+                    Lots = lots,
+                };
+
+                var serializedString = JsonConvert.SerializeObject(saveData, Formatting.Indented);
+
+                // If the file name is not an empty string open it for saving.
+                if (saveFileDialog1.FileName != "")
+                {
+                    // Saves the Image via a FileStream created by the OpenFile method.
+                    using (var stream = saveFileDialog1.OpenFile())
+                    {
+                        var sw = new StreamWriter(stream);
+                        sw.WriteLine(serializedString);
+                        sw.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                this.Enabled = true;
+            }
+        }
+
+        private void btnDeserialize_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                openFileDialog1.InitialDirectory = "c:\\";
+                openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog1.FilterIndex = 2;
+                openFileDialog1.RestoreDirectory = true;
+
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    var filePath = openFileDialog1.FileName;
+
+                    //Read the contents of the file into a stream
+                    var fileStream = openFileDialog1.OpenFile();
+
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        var fileContent = reader.ReadToEnd();
+
+                        var data = JsonConvert.DeserializeObject<SerializedData>(fileContent);
+                        txtToDate.Text = data.ToDate;
+                        txtFromDate.Text = data.FromDate;
+
+                        dgvCurrentSecurities.Rows.Clear();
+
+                        foreach (var lot in data.Lots)
+                        {
+                            DataGridViewRow row = (DataGridViewRow)dgvCurrentSecurities.Rows[0].Clone();
+                            row.Cells[0].Value = lot.Ticker;
+                            row.Cells[1].Value = lot.Quantity;
+                            dgvCurrentSecurities.Rows.Add(row);
+                        }
+
+                        dgvCurrentSecurities.Refresh();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                this.Enabled = true;
+            }
         }
     }
 }

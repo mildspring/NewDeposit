@@ -50,6 +50,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtPercent = new System.Windows.Forms.TextBox();
             this.dgvCurrentSecurities = new System.Windows.Forms.DataGridView();
+            this.btnSerialize = new System.Windows.Forms.Button();
+            this.btnDeserialize = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentSecurities)).BeginInit();
             this.SuspendLayout();
             // 
@@ -203,7 +207,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(782, 468);
+            this.label6.Location = new System.Drawing.Point(784, 468);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(47, 15);
             this.label6.TabIndex = 12;
@@ -211,16 +215,10 @@
             // 
             // txtPercent
             // 
-            this.txtPercent.Location = new System.Drawing.Point(780, 512);
+            this.txtPercent.Location = new System.Drawing.Point(783, 486);
             this.txtPercent.Name = "txtPercent";
             this.txtPercent.Size = new System.Drawing.Size(100, 23);
             this.txtPercent.TabIndex = 13;
-            // 
-            // Form1
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(891, 608);
             // 
             // dgvCurrentSecurities
             // 
@@ -238,6 +236,38 @@
             this.dgvCurrentSecurities.Size = new System.Drawing.Size(762, 387);
             this.dgvCurrentSecurities.TabIndex = 4;
             this.dgvCurrentSecurities.Text = "dataGridView2";
+            // 
+            // btnSerialize
+            // 
+            this.btnSerialize.Location = new System.Drawing.Point(783, 537);
+            this.btnSerialize.Name = "btnSerialize";
+            this.btnSerialize.Size = new System.Drawing.Size(75, 23);
+            this.btnSerialize.TabIndex = 14;
+            this.btnSerialize.Text = "Save";
+            this.btnSerialize.UseVisualStyleBackColor = true;
+            this.btnSerialize.Click += new System.EventHandler(this.btnSerialize_Click);
+            // 
+            // btnDeserialize
+            // 
+            this.btnDeserialize.Location = new System.Drawing.Point(784, 573);
+            this.btnDeserialize.Name = "btnDeserialize";
+            this.btnDeserialize.Size = new System.Drawing.Size(75, 23);
+            this.btnDeserialize.TabIndex = 15;
+            this.btnDeserialize.Text = "Load";
+            this.btnDeserialize.UseVisualStyleBackColor = true;
+            this.btnDeserialize.Click += new System.EventHandler(this.btnDeserialize_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(891, 608);
+            this.Controls.Add(this.btnDeserialize);
+            this.Controls.Add(this.btnSerialize);
             this.Controls.Add(this.txtPercent);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtFinalTotal);
@@ -284,6 +314,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Percent;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtPercent;
+        private System.Windows.Forms.Button btnSerialize;
+        private System.Windows.Forms.Button btnDeserialize;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
