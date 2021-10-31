@@ -14,7 +14,7 @@ namespace TotalReturns
         public Form1()
         {
             InitializeComponent();
-            _candleRepository = new PricesRepositoryCandles();
+            _candleRepository = new PricesRepositoryCandles(null);
         }
 
         private async void Run_Click(object sender, EventArgs e)

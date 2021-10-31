@@ -17,7 +17,7 @@ namespace NewDeposit
         public Form1()
         {
             InitializeComponent();
-            _candleRepository = new PricesRepositoryCandles();
+            _candleRepository = new PricesRepositoryCandles(null);
         }
 
         private void dgvCurrentSecurities_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)

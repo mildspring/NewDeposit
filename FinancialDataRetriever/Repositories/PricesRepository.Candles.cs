@@ -1,6 +1,10 @@
 ﻿using FinancialDataRetriever.Repositories.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using YahooFinanceApi;
 
@@ -10,10 +14,20 @@ namespace FinancialDataRetriever.Repositories
         : IPricesRepositoryCandles
     {
         private ConcurrentDictionary<string, ConcurrentDictionary<DateTime, Candle>> _tickerToDateToCandle;
+        private ConcurrentDictionary<DatesCandlesKey, IReadOnlyList<Candle>> _datesCandleKeyToCandles;
+        private ConcurrentDictionary<string, IReadOnlyList<Candle>> _tickerToCandles;
+        private string _cacheFolder;
 
-        public PricesRepositoryCandles()
+        public PricesRepositoryCandles(
+            string cacheFolder)
         {
             _tickerToDateToCandle = new ConcurrentDictionary<string, ConcurrentDictionary<DateTime, Candle>>();
+
+            _datesCandleKeyToCandles = new ConcurrentDictionary<DatesCandlesKey, IReadOnlyList<Candle>>();
+
+            _tickerToCandles = new ConcurrentDictionary<string, IReadOnlyList<Candle>>();
+
+            _cacheFolder = cacheFolder;
         }
 
         public Task Save(
@@ -53,6 +67,80 @@ namespace FinancialDataRetriever.Repositories
         public void ClearCache()
         {
             _tickerToDateToCandle.Clear();
+            _datesCandleKeyToCandles.Clear();
+        }        
+
+        public Task<IReadOnlyList<Candle>> Get(string ticker, DateTime? startDate, DateTime? endDate, Period period)
+        {
+            var key = new DatesCandlesKey(ticker, startDate, endDate, period);
+
+            var dateToCandles = _datesCandleKeyToCandles.GetOrAdd(
+                key,
+                (theTicker) => new List<Candle>() { });
+
+            return Task.FromResult(dateToCandles);
         }
+
+        public Task Save(string ticker, DateTime? startDate, DateTime? endDate, Period period, IReadOnlyList<Candle> result)
+        {
+            var key = new DatesCandlesKey(ticker, startDate, endDate, period);
+
+            var dateToCandles = _datesCandleKeyToCandles.GetOrAdd(
+                key,
+                (theTicker) => result);
+
+            return Task.CompletedTask;
+        }
+
+        public IReadOnlyList<Candle> GetAllCandles(string ticker)
+        {
+            _tickerToCandles.TryGetValue(
+                ticker,
+                out var dateToCandles);
+
+            return dateToCandles;
+        }
+
+        public void SaveAllCandles(string ticker, IReadOnlyList<Candle> candles)
+        {
+            var dateToCandles = _tickerToCandles.AddOrUpdate(
+                ticker,
+                (theTicker) => candles,
+                (theTicker, existing) =>
+                {
+                    var existingDictionary = existing.ToDictionary(x => x.DateTime);
+                    foreach (var candle in candles)
+                    {
+                        existingDictionary[candle.DateTime] = candle;
+                    }
+                    return existingDictionary.Values.ToList();
+                });
+        }
+
+        public async Task SerializeAllCandles()
+        {
+            foreach (var tickerToCandles in _tickerToCandles)
+            {
+                var ticker = tickerToCandles.Key;
+                var value = tickerToCandles.Value;
+                var serialized = JsonConvert.SerializeObject(value, Formatting.Indented);
+                await File.WriteAllTextAsync(Path.Combine(_cacheFolder, "Candles", $"{ticker}.json"), serialized);
+            }
+        }
+
+        public async Task DeserializeAllCandles()
+        {
+            var filePaths = Directory.EnumerateFiles(Path.Combine(_cacheFolder, "Candles"));
+            foreach (var filePath in filePaths)
+            {
+                var fileName = Path.GetFileName(filePath);
+                var ticker = fileName.Split(".")[0];
+                var text = await File.ReadAllTextAsync(filePath);
+                var candles = JsonConvert.DeserializeObject<List<Candle>>(text);
+                SaveAllCandles(ticker, candles);
+            }
+        }
+
+        public record DatesCandlesKey(string Ticker, DateTime? StartDate, DateTime? EndDate, Period Period);
     }
 }

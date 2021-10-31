@@ -4,6 +4,7 @@ using YahooFinanceApi;
 using System.Linq;
 using System.Threading.Tasks;
 using FinancialDataRetriever.Repositories.Interfaces;
+using System.Threading;
 
 namespace FinancialDataRetriever
 {
@@ -117,5 +118,43 @@ namespace FinancialDataRetriever
             }
             return dateToCandleMap;
         }
+
+        public async Task<Dictionary<string, IReadOnlyList<Candle>>> GetHistoricalPrice(
+            IReadOnlyList<string> tickers,
+            List<TickerAndException> exceptions)
+        {
+            var dateToCandleMap = new Dictionary<string, IReadOnlyList<Candle>>();
+
+            foreach (var ticker in tickers)
+            {
+                var data = _candleRepository.GetAllCandles(ticker);
+                if (data == null)
+                {
+                    try
+                    {
+                        var result = await Yahoo.GetHistoricalAsync(ticker);
+                        _candleRepository.SaveAllCandles(ticker, result);
+                        data = result;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (exceptions != null)
+                        {
+                            var issue = new TickerAndException(ticker, ex); ;
+                            exceptions.Add(issue);
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                }
+
+                dateToCandleMap.Add(ticker, data);
+            }
+            return dateToCandleMap;
+        }
     }
+
+    public record TickerAndException(string Ticker, Exception Exception);
 }

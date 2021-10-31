@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities.NUnit", "Utilitie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialDataRetriever", "FinancialDataRetriever\FinancialDataRetriever.csproj", "{CB4F3DA9-E80D-4A8F-8C74-E5001C664B22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TotalReturns", "TotalReturns\TotalReturns.csproj", "{914B8D23-E403-49D8-BEBD-C3F1B97CA5D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TotalReturns", "TotalReturns\TotalReturns.csproj", "{914B8D23-E403-49D8-BEBD-C3F1B97CA5D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandleRetriever", "CandleRetriever\CandleRetriever.csproj", "{B0E6FF6C-DEE7-4CA7-A72D-A1CC35CF9521}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{914B8D23-E403-49D8-BEBD-C3F1B97CA5D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{914B8D23-E403-49D8-BEBD-C3F1B97CA5D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{914B8D23-E403-49D8-BEBD-C3F1B97CA5D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0E6FF6C-DEE7-4CA7-A72D-A1CC35CF9521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E6FF6C-DEE7-4CA7-A72D-A1CC35CF9521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E6FF6C-DEE7-4CA7-A72D-A1CC35CF9521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E6FF6C-DEE7-4CA7-A72D-A1CC35CF9521}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
