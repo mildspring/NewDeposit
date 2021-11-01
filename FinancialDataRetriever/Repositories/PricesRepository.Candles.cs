@@ -15,7 +15,7 @@ namespace FinancialDataRetriever.Repositories
     {
         private ConcurrentDictionary<string, ConcurrentDictionary<DateTime, Candle>> _tickerToDateToCandle;
         private ConcurrentDictionary<DatesCandlesKey, IReadOnlyList<Candle>> _datesCandleKeyToCandles;
-        private ConcurrentDictionary<string, IReadOnlyList<Candle>> _tickerToCandles;
+        private ConcurrentDictionary<string, IReadOnlyList<InternalCandle>> _tickerToCandles;
         private string _cacheFolder;
 
         public PricesRepositoryCandles(
@@ -25,7 +25,7 @@ namespace FinancialDataRetriever.Repositories
 
             _datesCandleKeyToCandles = new ConcurrentDictionary<DatesCandlesKey, IReadOnlyList<Candle>>();
 
-            _tickerToCandles = new ConcurrentDictionary<string, IReadOnlyList<Candle>>();
+            _tickerToCandles = new ConcurrentDictionary<string, IReadOnlyList<InternalCandle>>();
 
             _cacheFolder = cacheFolder;
         }
@@ -92,7 +92,7 @@ namespace FinancialDataRetriever.Repositories
             return Task.CompletedTask;
         }
 
-        public IReadOnlyList<Candle> GetAllCandles(string ticker)
+        public IReadOnlyList<InternalCandle> GetAllCandles(string ticker)
         {
             _tickerToCandles.TryGetValue(
                 ticker,
@@ -101,7 +101,12 @@ namespace FinancialDataRetriever.Repositories
             return dateToCandles;
         }
 
-        public void SaveAllCandles(string ticker, IReadOnlyList<Candle> candles)
+        public IReadOnlyList<InternalCandle> SaveAllCandles(string ticker, IReadOnlyList<Candle> candles)
+        {
+            return SaveAllCandles(ticker, candles.Select(c => new InternalCandle(c)).ToList());
+        }
+
+        public IReadOnlyList<InternalCandle> SaveAllCandles(string ticker, IReadOnlyList<InternalCandle> candles)
         {
             var dateToCandles = _tickerToCandles.AddOrUpdate(
                 ticker,
@@ -115,6 +120,7 @@ namespace FinancialDataRetriever.Repositories
                     }
                     return existingDictionary.Values.ToList();
                 });
+            return dateToCandles;
         }
 
         public async Task SerializeAllCandles()
@@ -136,11 +142,15 @@ namespace FinancialDataRetriever.Repositories
                 var fileName = Path.GetFileName(filePath);
                 var ticker = fileName.Split(".")[0];
                 var text = await File.ReadAllTextAsync(filePath);
-                var candles = JsonConvert.DeserializeObject<List<Candle>>(text);
+                var candles = JsonConvert.DeserializeObject<List<InternalCandle>>(text);
                 SaveAllCandles(ticker, candles);
             }
         }
 
-        public record DatesCandlesKey(string Ticker, DateTime? StartDate, DateTime? EndDate, Period Period);
+        public Dictionary<string, IReadOnlyList<InternalCandle>> GetAllCandlesFromCache()
+        {
+            var dictionary = _tickerToCandles.ToDictionary(k => k.Key, v => v.Value);
+            return dictionary;
+        }
     }
 }

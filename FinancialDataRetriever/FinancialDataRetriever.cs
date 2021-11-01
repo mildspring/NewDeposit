@@ -119,11 +119,11 @@ namespace FinancialDataRetriever
             return dateToCandleMap;
         }
 
-        public async Task<Dictionary<string, IReadOnlyList<Candle>>> GetHistoricalPrice(
+        public async Task<Dictionary<string, IReadOnlyList<InternalCandle>>> GetHistoricalPrice(
             IReadOnlyList<string> tickers,
             List<TickerAndException> exceptions)
         {
-            var dateToCandleMap = new Dictionary<string, IReadOnlyList<Candle>>();
+            var dateToCandleMap = new Dictionary<string, IReadOnlyList<InternalCandle>>();
 
             foreach (var ticker in tickers)
             {
@@ -133,8 +133,8 @@ namespace FinancialDataRetriever
                     try
                     {
                         var result = await Yahoo.GetHistoricalAsync(ticker);
-                        _candleRepository.SaveAllCandles(ticker, result);
-                        data = result;
+                        var internalCandles = _candleRepository.SaveAllCandles(ticker, result);
+                        data = internalCandles;
                     }
                     catch (Exception ex)
                     {
