@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FinancialDataRetriever\FinancialDataRetriever.csproj" />
     <ProjectReference Include="..\OptimizationStrategies\OptimizationStrategies.csproj" />
+    <ProjectReference Include="..\Utilities\Utilities.csproj" />
   </ItemGroup>
 
 </Project>

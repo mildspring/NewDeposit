@@ -68,6 +68,7 @@ namespace FinancialDataRetriever.Repositories
         {
             _tickerToDateToCandle.Clear();
             _datesCandleKeyToCandles.Clear();
+            _tickerToCandles.Clear();
         }        
 
         public Task<IReadOnlyList<Candle>> Get(string ticker, DateTime? startDate, DateTime? endDate, Period period)
