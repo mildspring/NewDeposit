@@ -52,7 +52,6 @@ namespace LookForIpoOptimization
                     txtResult.AppendText(Environment.NewLine);
                     foreach (var oneResult in result)
                     {
-                        //txtResult.AppendText(oneResult.ToString());
                         txtResult.AppendText($"{oneResult.Ticker},{oneResult.First.DateTime},{oneResult.First.High},{oneResult.Max.DateTime},{oneResult.Max.High},{oneResult.Min.DateTime},{oneResult.Min.Low}");
                         txtResult.AppendText(Environment.NewLine);
                     }
@@ -63,6 +62,18 @@ namespace LookForIpoOptimization
                     var result = strategy.Calculate(decimal.Parse(txtIncreasedOverPercent.Text));
                     txtResult.AppendText(result.ToString());
                     txtResult.AppendText(Environment.NewLine);
+                }
+                if (rdbLowestPriceFollowedByHighestPrice.Checked)
+                {
+                    var strategy = new LowestPriceFollowedByHighestPrice(filteredCandles);
+                    var result = strategy.Calculate(int.Parse(txtFirstFewDays.Text));
+                    txtResult.AppendText($"Ticker,Min.DateTime,Min.Low,Max.DateTime,Max.High");
+                    txtResult.AppendText(Environment.NewLine);
+                    foreach (var oneResult in result)
+                    {
+                        txtResult.AppendText($"{oneResult.Ticker},{oneResult.Min.DateTime},{oneResult.Min.Low},{oneResult.Max.DateTime},{oneResult.Max.High}");
+                        txtResult.AppendText(Environment.NewLine);
+                    }
                 }
             }
             catch (Exception ex)

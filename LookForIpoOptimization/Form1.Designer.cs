@@ -35,20 +35,22 @@ namespace LookForIpoOptimization
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtIncreasedOverPercent = new System.Windows.Forms.TextBox();
             this.rdbIncreasedOverPercent = new System.Windows.Forms.RadioButton();
+            this.rdbMaxPercentInTimePeriod = new System.Windows.Forms.RadioButton();
             this.txtDays = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.rdbMaxPercentInTimePeriod = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSinceDate = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtMinimumNumberOfCandles = new System.Windows.Forms.TextBox();
             this.btnReload = new System.Windows.Forms.Button();
+            this.rdbLowestPriceFollowedByHighestPrice = new System.Windows.Forms.RadioButton();
+            this.txtFirstFewDays = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtResult
             // 
-            this.txtResult.Location = new System.Drawing.Point(12, 112);
+            this.txtResult.Location = new System.Drawing.Point(12, 318);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
             this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -57,7 +59,7 @@ namespace LookForIpoOptimization
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(699, 416);
+            this.btnClear.Location = new System.Drawing.Point(713, 613);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 1;
@@ -76,12 +78,14 @@ namespace LookForIpoOptimization
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtFirstFewDays);
+            this.groupBox1.Controls.Add(this.rdbLowestPriceFollowedByHighestPrice);
             this.groupBox1.Controls.Add(this.txtIncreasedOverPercent);
             this.groupBox1.Controls.Add(this.rdbIncreasedOverPercent);
             this.groupBox1.Controls.Add(this.rdbMaxPercentInTimePeriod);
             this.groupBox1.Location = new System.Drawing.Point(12, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(493, 91);
+            this.groupBox1.Size = new System.Drawing.Size(493, 304);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Strategy";
@@ -105,6 +109,17 @@ namespace LookForIpoOptimization
             this.rdbIncreasedOverPercent.Text = "Break Down of how many increased over percent";
             this.rdbIncreasedOverPercent.UseVisualStyleBackColor = true;
             // 
+            // rdbMaxPercentInTimePeriod
+            // 
+            this.rdbMaxPercentInTimePeriod.AutoSize = true;
+            this.rdbMaxPercentInTimePeriod.Location = new System.Drawing.Point(7, 23);
+            this.rdbMaxPercentInTimePeriod.Name = "rdbMaxPercentInTimePeriod";
+            this.rdbMaxPercentInTimePeriod.Size = new System.Drawing.Size(158, 19);
+            this.rdbMaxPercentInTimePeriod.TabIndex = 0;
+            this.rdbMaxPercentInTimePeriod.TabStop = true;
+            this.rdbMaxPercentInTimePeriod.Text = "MaxPercentInTimePeriod";
+            this.rdbMaxPercentInTimePeriod.UseVisualStyleBackColor = true;
+            // 
             // txtDays
             // 
             this.txtDays.Location = new System.Drawing.Point(613, 83);
@@ -121,17 +136,6 @@ namespace LookForIpoOptimization
             this.label1.Size = new System.Drawing.Size(32, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "Days";
-            // 
-            // rdbMaxPercentInTimePeriod
-            // 
-            this.rdbMaxPercentInTimePeriod.AutoSize = true;
-            this.rdbMaxPercentInTimePeriod.Location = new System.Drawing.Point(7, 23);
-            this.rdbMaxPercentInTimePeriod.Name = "rdbMaxPercentInTimePeriod";
-            this.rdbMaxPercentInTimePeriod.Size = new System.Drawing.Size(158, 19);
-            this.rdbMaxPercentInTimePeriod.TabIndex = 0;
-            this.rdbMaxPercentInTimePeriod.TabStop = true;
-            this.rdbMaxPercentInTimePeriod.Text = "MaxPercentInTimePeriod";
-            this.rdbMaxPercentInTimePeriod.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -176,11 +180,30 @@ namespace LookForIpoOptimization
             this.btnReload.UseVisualStyleBackColor = true;
             this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
             // 
+            // rdbLowestPRiceFollowedByHighestPrice
+            // 
+            this.rdbLowestPriceFollowedByHighestPrice.AutoSize = true;
+            this.rdbLowestPriceFollowedByHighestPrice.Location = new System.Drawing.Point(7, 79);
+            this.rdbLowestPriceFollowedByHighestPrice.Name = "rdbLowestPRiceFollowedByHighestPrice";
+            this.rdbLowestPriceFollowedByHighestPrice.Size = new System.Drawing.Size(379, 19);
+            this.rdbLowestPriceFollowedByHighestPrice.TabIndex = 5;
+            this.rdbLowestPriceFollowedByHighestPrice.TabStop = true;
+            this.rdbLowestPriceFollowedByHighestPrice.Text = "Lowest Price with first few days, followed by highest following days";
+            this.rdbLowestPriceFollowedByHighestPrice.UseVisualStyleBackColor = true;
+            // 
+            // txtFirstFewDays
+            // 
+            this.txtFirstFewDays.Location = new System.Drawing.Point(406, 77);
+            this.txtFirstFewDays.Name = "txtFirstFewDays";
+            this.txtFirstFewDays.Size = new System.Drawing.Size(81, 23);
+            this.txtFirstFewDays.TabIndex = 6;
+            this.txtFirstFewDays.Text = "7";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 648);
             this.Controls.Add(this.btnReload);
             this.Controls.Add(this.txtMinimumNumberOfCandles);
             this.Controls.Add(this.txtDays);
@@ -217,6 +240,8 @@ namespace LookForIpoOptimization
         private System.Windows.Forms.RadioButton rdbIncreasedOverPercent;
         private System.Windows.Forms.TextBox txtIncreasedOverPercent;
         private System.Windows.Forms.Button btnReload;
+        private System.Windows.Forms.TextBox txtFirstFewDays;
+        private System.Windows.Forms.RadioButton rdbLowestPriceFollowedByHighestPrice;
     }
 }
 
